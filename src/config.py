@@ -7,15 +7,15 @@ version = "dev"
 
 
 key_config_option = ConfigOption(
-    "游戏设置",
+    "Game Settings",
     {
-        "游戏语言": "中文",
+        "Game Language": "Chinese",
     },
-    description="游戏设置",
+    description="Game settings",
     config_type={
-        "游戏语言": {
+        "Game Language": {
             "type": "drop_down",
-            "options": ["中文", "English"],
+            "options": ["Chinese", "English"],
         }
     },
 )
@@ -36,46 +36,46 @@ config = {
             'use_openvino': True,
         }
     },
-    'windows': {  # required  when supporting windows game
+    'windows': {  # required when supporting windows game
         'exe': ['Star.exe', 'BPSR.exe', 'BPSR_STEAM.exe'],
-        # 'hwnd_class': 'UnrealWindow', #增加重名检查准确度
+        # 'hwnd_class': 'UnrealWindow', # Increases duplicate name check accuracy
         'interaction': 'Pynput',
-        'can_bit_blt': True,  # default false, opengl games does not support bit_blt
+        'can_bit_blt': True,  # default false, opengl games do not support bit_blt
         'bit_blt_render_full': True,
-        'check_hdr': True, #当用户开启AutoHDR时候提示用户, 但不禁止使用
-        'force_no_hdr': False, #True=当用户开启AutoHDR时候禁止使用
-        'require_bg': True # 要求使用后台截图
+        'check_hdr': False, # Warns user when AutoHDR is enabled, but does not prevent usage
+        'force_no_hdr': False, # True = prevents usage when user has AutoHDR enabled
+        'require_bg': True # Requires background screenshot
     },
-    'start_timeout': 120,  # default 60
-    'window_size': { #ok-script窗口大小
+    'start_timeout': 60,  # default 60
+    'window_size': { # ok-script window size
         'width': 1200,
         'height': 800,
         'min_width': 600,
         'min_height': 450,
     },
     'supported_resolution': {
-        'ratio': '16:9', #支持的游戏分辨率
-        'min_size': (1280, 720), #支持的最低游戏分辨率
-        'resize_to': [(2560, 1440), (1920, 1080), (1600, 900), (1280, 720)], #如果非16:9自动缩放为 resize_to
+        'ratio': '16:9', # Supported game resolution
+        'min_size': (1280, 720), # Minimum supported game resolution
+        'resize_to': [(2560, 1440), (1920, 1080), (1600, 900), (1280, 720)], # If not 16:9, automatically rescale to resize_to
     },
     'analytics': {
-        # 'report_url': 'http://report.ok-script.cn:8080/report', #上报日活, 可选
+        # 'report_url': 'http://report.ok-script.cn:8080/report', # Report daily active users, optional
     },
     'links': {
             'default': {
                 'github': 'https://github.com/sanheiii/ok-star-resonance',
             }
         },
-    'screenshots_folder': "screenshots", #截图存放目录, 每次重新启动会清空目录
+    'screenshots_folder': "screenshots", # Screenshot storage directory, cleared on each restart
     'gui_title': 'ok-star-resonance',  # Optional
     'template_matching': {
-        'coco_feature_json': os.path.join('assets', 'result.json'), #coco格式标记, 需要png图片, 在debug模式运行后, 会对进行切图仅保留被标记部分以减少图片大小
-        'default_horizontal_variance': 0.002, #默认x偏移, 查找不传box的时候, 会根据coco坐标, match偏移box内的
-        'default_vertical_variance': 0.002, #默认y偏移
-        'default_threshold': 0.8, #默认threshold
+        'coco_feature_json': os.path.join('assets', 'result.json'), # COCO format annotation, requires PNG images. After running in debug mode, will crop images to keep only annotated parts to reduce image size
+        'default_horizontal_variance': 0.002, # Default x offset, when searching without passing box, will offset box based on COCO coordinates and match
+        'default_vertical_variance': 0.002, # Default y offset
+        'default_threshold': 0.8, # Default threshold
     },
-    'version': version, #版本
-    'my_app': ['src.globals', 'Globals'], # 全局单例对象, 可以存放加载的模型, 使用og.my_app调用
+    'version': version, # Version
+    'my_app': ['src.globals', 'Globals'], # Global singleton object, can store loaded models, call using og.my_app
     'onetime_tasks': [  # tasks to execute
         ["ok", "DiagnosisTask"],
     ],

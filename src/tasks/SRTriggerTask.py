@@ -34,8 +34,8 @@ class SRTriggerTask(TriggerTask):
         return None
 
     def get_game_language(self):
-        lang = self.get_global_config('游戏设置').get('游戏语言')
-        if lang == '中文':
+        lang = self.get_global_config('Game Settings').get('Game Language')
+        if lang == 'Chinese':
             return 'chinese'
         else:
             return 'english'

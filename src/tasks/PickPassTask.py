@@ -1,16 +1,34 @@
-import re
-
+import time
 from src.tasks.SRTriggerTask import SRTriggerTask
 
 class PickPassTask(SRTriggerTask):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.name = "自动领取月卡"
-        self.description = "弹出月卡界面后自动领取月卡"
+        self.name = "Auto Claim Monthly Pass"
+        self.description = "Automatically claims monthly pass when the interface appears"
         self.trigger_count = 0
+        self.last_action_time = None
+        
 
     def run(self):
-        if box:=self.ocr(0.44, 0.94, 0.56, 1, match='点击空白处关闭'):
-            self.click_box(box)
-        return
+        now = time.time()
+        if self.last_action_time is not None and now - self.last_action_time <= 0.5:
+            return False
+        
+        if self.ocr(0.30, 0.45, 0.70, 0.55, match='Collection Card'):
+            self.click(0.5, 0.5)
+            self.last_action_time = now
+            return True
+        
+        if self.ocr(0.30, 0.55, 0.70, 0.65, match='monthly card rewards'):
+            self.click(0.5, 0.5)
+            self.last_action_time = now
+            return True
+        
+        if self.ocr(0.35, 0.10, 0.65, 0.25, match='Obtained'):
+            self.send_key('esc')
+            self.last_action_time = now
+            return True
+            
+        return False
